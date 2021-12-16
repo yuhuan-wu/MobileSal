@@ -17,7 +17,7 @@ My e-mail is: wuyuhuan @ mail.nankai (dot) edu.cn
 * PyTorch 0.4.1~1.7.1 or Jittor
 * Tested on PyTorch 1.7.1, Jittor 1.3.1, [Check Complete Envs](envs/)
 
-Note: `Jittor` requires Python3.7+
+Note: `Jittor` requires Python3.7+. For Jittor users, please run `git checkout jittor` first.
 
 ### Installing
 
