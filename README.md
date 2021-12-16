@@ -8,8 +8,7 @@ If you run into any problems or feel any difficulties to run this code, do not h
 
 My e-mail is: wuyuhuan @ mail.nankai (dot) edu.cn
 
-[[Official Ver.]](https://ieeexplore.ieee.org/document/9382868)
-[[PDF]](https://mmcheng.net/wp-content/uploads/2021/03/21TIPInstSal.pdf)
+[[PDF]](https://mftp.mmcheng.net/Papers/21PAMI_MobileSal.pdf)
 
 ### Requirements
 
