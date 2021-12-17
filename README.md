@@ -12,11 +12,24 @@ My e-mail is: wuyuhuan @ mail.nankai (dot) edu.cn
 
 ### Requirements
 
-* Python 3.6+
-* PyTorch 0.4.1~1.7.1 or Jittor
-* Tested on PyTorch 1.7.1, Jittor 1.3.1, [Check Complete Envs](envs/)
+#### PyTorch 
 
-Note: `Jittor` requires Python3.7+. For Jittor users, please run `git checkout jittor` first.
+* Python 3.6+
+* PyTorch >=0.4.1, OpenCV-Python
+* Tested on PyTorch 1.7.1
+
+#### Jittor
+
+* Python 3.7+
+* Jittor, OpenCV-Python
+* Tested on Jittor 1.3.1
+
+For Jittor users, we create a branch `jittor`. So please run the following command first:
+
+````
+git checkout jittor
+````
+
 
 ### Installing
 
@@ -25,9 +38,6 @@ Please prepare the required packages.
 ````
 pip install -r envs/requirements.txt
 ````
-
-For installing Jittor, please refer to the [offical site](https://cg.cs.tsinghua.edu.cn/jittor/download/)
-
 
 ### Data Preparing
 
