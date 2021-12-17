@@ -33,7 +33,7 @@ For installing Jittor, please refer to the [offical site](https://cg.cs.tsinghua
 
 Before training/testing our network, please download the training data: 
 
-* Preprocessed data of 6 datasets: [Google Drive](https://drive.google.com/file/d/1czlZyW9_6k3ueS--TDAZK6M7Uv6FpUfO/view?usp=sharing), [Baidu Pan]()
+* Preprocessed data of 6 datasets: [[Google Drive]](https://drive.google.com/file/d/1czlZyW9_6k3ueS--TDAZK6M7Uv6FpUfO/view?usp=sharing), [[Baidu Pan, 9nxi]](https://pan.baidu.com/s/1a71BlcvX0MTBuP_GGd84WA)
 
 
 Note: if you are blocked by Google and Baidu services, you can contact me via e-mail and I will send you a copy of data and model weights.
@@ -45,9 +45,7 @@ Then, the `./datasets/` folder should contain six folders: `NJU2K/, NLPR/, STERE
 
 ### Train
 
-It is very simple to train our network. We have prepared a script to run the training step.
-You can at first train our network on the ISOD dataset:
-
+It is very simple to train our network. We have prepared a script to run the training step:
 ```
 bash ./tools/train.sh
 ```
@@ -57,11 +55,11 @@ bash ./tools/train.sh
 As in our paper, we train our model on the NJU2K_NLPR training set, and test our model on NJU2K_test, NLPR_test, STEREO, SIP, and SSD datasets. For DUTLF-D, we train our model on DUTLF-D training set and evaluate on its testing test.
 
 (Default) Trained on NJU2K_NLPR training set: 
-Single-scale Training: [Google Drive](https://drive.google.com/file/d/1dfyFkdsI1rOfmhmgG-o45ggnOj5Wpr1d/view?usp=sharing), [Baidu Pan]()
-Multi-scale Training: [Google Drive](https://drive.google.com/file/d/1WTRxxO78wx48F3ItfXG8vbSL4IvWanyr/view?usp=sharing), [Baidu Pan]()
+* Single-scale Training: [[Google Drive]](https://drive.google.com/file/d/1dfyFkdsI1rOfmhmgG-o45ggnOj5Wpr1d/view?usp=sharing), [[Baidu Pan, 9nxi]](https://pan.baidu.com/s/1a71BlcvX0MTBuP_GGd84WA)
+* Multi-scale Training: [[Google Drive]](https://drive.google.com/file/d/1WTRxxO78wx48F3ItfXG8vbSL4IvWanyr/view?usp=sharing), [[Baidu Pan, 9nxi]](https://pan.baidu.com/s/1a71BlcvX0MTBuP_GGd84WA)
 
 (Custom) Training on DUTLF-D training set:
-Multi-scale Training: [Google Drive](https://drive.google.com/file/d/1L26kN_sZkLVDBzh_NOCB-ajkrGJdIovi/view?usp=sharing), [Baidu Pan]()
+* Multi-scale Training: [[Google Drive]](https://drive.google.com/file/d/1L26kN_sZkLVDBzh_NOCB-ajkrGJdIovi/view?usp=sharing), [[Baidu Pan, 9nxi]](https://pan.baidu.com/s/1a71BlcvX0MTBuP_GGd84WA)
 
 Download them and put them into the `pretrained/` folder.
 
@@ -79,9 +77,9 @@ The scripts will automatically generate saliency maps on the `maps/` directory.
 
 For covenience, we provide the pretrained saliency maps on several datasets as below:
 
-Single-scale Training: [Google Drive](https://drive.google.com/file/d/1UA7zZmMO1Js0Jh9VQwo5JjYRF3qX0y0N/view?usp=sharing), [Baidu Pan]()
+* Single-scale Training: [[Google Drive]](https://drive.google.com/file/d/1UA7zZmMO1Js0Jh9VQwo5JjYRF3qX0y0N/view?usp=sharing), [[Baidu Pan, 9nxi]](https://pan.baidu.com/s/1a71BlcvX0MTBuP_GGd84WA)
 
-Multi-scale Training: [Google Drive](https://drive.google.com/file/d/1-vwtUPh3UWez963IyZNO6HZkGdC3GusL/view?usp=sharing), [Baidu Pan]()
+* Multi-scale Training: [[Google Drive]](https://drive.google.com/file/d/1-vwtUPh3UWez963IyZNO6HZkGdC3GusL/view?usp=sharing), [[Baidu Pan, 9nxi]](https://pan.baidu.com/s/1a71BlcvX0MTBuP_GGd84WA)
 
 ### TODO
 
