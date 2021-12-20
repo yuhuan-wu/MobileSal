@@ -25,9 +25,9 @@ For installing Jittor, please run the following commands:
 ````
 sudo apt install python3.7-dev libomp-dev
 python3.7 -m pip install -r requirements.txt
+python3.7 -m jittor.test.test_example
 # 如果您电脑包含Nvidia显卡，检查cudnn加速库
 python3.7 -m jittor.test.test_cudnn_op
-python3.7 -m pip install requ
 ````
 
 ### Data Preparing
