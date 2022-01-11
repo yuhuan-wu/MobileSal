@@ -221,6 +221,8 @@ class MobileSal(nn.Module):
                     mode='bilinear',
                     align_corners=False)
             )
+            if test:
+                break
         saliency_maps = torch.sigmoid(torch.cat(saliency_maps, dim=1))
 
         if test:
@@ -311,24 +313,6 @@ class IDR(nn.Module):
             xxx.append(self.inners[i](each_xx))
         xxx = self.fuse(self.reduce(torch.cat(xxx, dim=1)))
         return torch.sigmoid(F.interpolate(xxx, size=input.shape[2:], mode='bilinear'))
-
-
-class CPR(nn.Module):
-    def __init__(self, in_channels, dilation=[1, 2, 6]):
-        super(CPR, self).__init__()
-        self.conv1 = nn.Conv2d(in_channels, in_channels, groups=in_channels, stride=1, kernel_size=3, padding=dilation[0], dilation=dilation[0])
-        self.conv2 = nn.Conv2d(in_channels, in_channels, groups=in_channels, stride=1, kernel_size=3, padding=dilation[1], dilation=dilation[1])
-        self.conv3 = nn.Conv2d(in_channels, in_channels, groups=in_channels, stride=1, kernel_size=3, padding=dilation[2], dilation=dilation[2])
-        self.bn = BatchNorm2d(in_channels)
-        self.act = nn.ReLU(inplace=True)
-
-    def forward(self, x):
-        residual = x
-        x = self.conv1(x) + self.conv2(x) + self.conv3(x)
-        x = self.bn(x)
-        x = residual + x
-        return x
-
 
 class CPR(nn.Module):
     def __init__(self, inp, oup, stride=1, expand_ratio=4, dilation=[1,2,3], residual=True):

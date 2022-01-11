@@ -101,6 +101,30 @@ An example script is located at: `tools/test_trt.sh`. Run:
 bash ./tools/test_trt.sh
 ```
 
+This script will automatically convert PyTorch MobileSal to TensorRT MobileSal.
+On deployment for real-world applications, you can load the converted TensorRT MobileSal for inference:
+
+```
+from torch2trt import torch2trt, TRTModule
+model = TRTModule(); trt_model_path = "pretrained/mobilesal_trt.pth"
+model.load_state_dict(torch.load(trt_model_path))
+result = model(image, depth) # get result with [torch.Tensor] input
+```
+
+### Speed Test
+We provide a speed test script on MobileSal:
+
+```
+python speed_test.py
+```
+
+
+|     Type     | Input  Size    | Batch Size | FP16 | FPS | 
+|-----------------|:---------:|:-----:|:-----:|:-----------:|
+| PyTorch   | 320 x 320 |  20 |  No |     450    |     
+| TensorRT | 320 x 320 |  1 |  No |     420    |    
+| TensorRT | 320 x 320 |  1 |  Yes |     800    |     
+
 
 ### Pretrained Saliency maps
 
@@ -147,3 +171,4 @@ This repository is built under the help of the following five projects for acade
 
 * [Jittor](https://github.com/Jittor/jittor)
 
+* [torch2trt](https://github.com/NVIDIA-AI-IOT/torch2trt)
