@@ -13,7 +13,7 @@ My e-mail is: wuyuhuan @ mail.nankai (dot) edu.cn
 This repository contains:
 
 - [x] Full code, data, pretrained models for training and testing
-- [x] MobileSal deployment, achieving 420FPS (fp32) and 660FPS (fp16) with `batch size 1` on a single RTX 2080Ti.
+- [x] MobileSal deployment, achieving 420FPS (fp32) and 800FPS (fp16) with `batch size 1` on a single RTX 2080Ti.
 
 ### Requirements
 
