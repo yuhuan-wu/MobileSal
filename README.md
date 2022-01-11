@@ -10,6 +10,11 @@ My e-mail is: wuyuhuan @ mail.nankai (dot) edu.cn
 
 [[PDF]](https://mftp.mmcheng.net/Papers/21PAMI_MobileSal.pdf)
 
+This repository contains:
+
+- [x] Full code, data, pretrained models for training and testing
+- [x] MobileSal deployment, achieving 420FPS (fp32) and 660FPS (fp16) with `batch size 1` on a single RTX 2080Ti.
+
 ### Requirements
 
 #### PyTorch 
@@ -23,6 +28,10 @@ My e-mail is: wuyuhuan @ mail.nankai (dot) edu.cn
 * Python 3.7+
 * Jittor, OpenCV-Python
 * Tested on Jittor 1.3.1
+
+### Deployment
+
+* [torch2trt](https://github.com/NVIDIA-AI-IOT/torch2trt)
 
 For Jittor users, we create a branch `jittor`. So please run the following command first:
 
@@ -83,6 +92,16 @@ bash ./tools/test.sh
 
 The scripts will automatically generate saliency maps on the `maps/` directory.
 
+
+### Deployment
+
+An example script is located at: `tools/test_trt.sh`. Run:
+
+```
+bash ./tools/test_trt.sh
+```
+
+
 ### Pretrained Saliency maps
 
 For covenience, we provide the pretrained saliency maps on several datasets as below:
@@ -94,8 +113,7 @@ For covenience, we provide the pretrained saliency maps on several datasets as b
 ### TODO
 
 1. Release the pretrained models and saliency maps on COME15K dataset.
-2. Release the ONNX model for real-world applications.
-3. Add results with the [P2T](https://arxiv.org/abs/2106.12011) transformer backbone.
+2. Add results with the [P2T](https://arxiv.org/abs/2106.12011) transformer backbone.
 
 ### Other Tips
 
