@@ -80,7 +80,7 @@ def val(args, val_loader, model, criterion):
             depth_var = None
 
         # run the mdoel
-        output, _ = model(input_var, depth_var)
+        output, _ = model(input_var, depth_var, test=False)
         loss = criterion(output, target_var)
 
         #torch.cuda.synchronize()
@@ -134,7 +134,7 @@ def train(args, train_loader, model, criterion, optimizer, epoch, max_batches, c
             depth_var = None
 
         # run the model
-        output, depth_output = model(input_var, depth_var)
+        output, depth_output = model(input_var, depth_var, test=False)
         loss = criterion(output, target_var)
         true_depth = depth_var * 0.5 + 0.5
         loss_depth = args.depth_weight * (1 - ssim(depth_output, true_depth))

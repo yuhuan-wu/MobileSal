@@ -195,7 +195,7 @@ class MobileSal(nn.Module):
     def loss(self, input, target):
         pass
 
-    def forward(self, input, depth=None, temp=1):
+    def forward(self, input, depth=None, test=True):
 
         # generate backbone features
         conv1, conv2, conv3, conv4, conv5 = self.backbone(input)
@@ -204,7 +204,10 @@ class MobileSal(nn.Module):
         if depth is not None:
             depth_features = self.depthnet(depth)
             conv5 = self.depth_fuse(conv5, depth_features[-1])
-            depth_pred = self.idr([conv1, conv2, conv3, conv4, conv5], input=input) # implicit depth restoration
+            if test:
+                depth_pred = None
+            else:
+                depth_pred = self.idr([conv1, conv2, conv3, conv4, conv5], input=input) # implicit depth restoration
         else:
             depth_pred = None
 
@@ -220,8 +223,10 @@ class MobileSal(nn.Module):
             )
         saliency_maps = torch.sigmoid(torch.cat(saliency_maps, dim=1))
 
-
-        return saliency_maps, depth_pred
+        if test:
+            return saliency_maps
+        else:   
+            return saliency_maps, depth_pred
 
 
 class DepthNet(nn.Module):

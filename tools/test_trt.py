@@ -3,7 +3,6 @@ sys.path.insert(0, '.')
 
 import torch
 import cv2
-import time
 import os
 import os.path as osp
 import numpy as np
@@ -14,8 +13,7 @@ from SalEval import SalEval
 from models import model as net
 import matplotlib.pyplot as plt
 from tqdm import tqdm
-
-
+from torch2trt import torch2trt, TRTModule
     
 
 def get_mean_set(args):
@@ -29,8 +27,12 @@ def get_mean_set(args):
 def validateModel(args, model, image_list, label_list, savedir):
     mean, std = get_mean_set(args)
     evaluate = SalEval()
-
-    for idx in tqdm(range(len(image_list))):
+    
+    pbar = tqdm(range(len(image_list)))
+    
+    time_counter = 0
+    
+    for idx in pbar:
         image = cv2.imread(image_list[idx])
         label = cv2.imread(label_list[idx], 0)
         label = label / 255
@@ -60,11 +62,17 @@ def validateModel(args, model, image_list, label_list, savedir):
 
         if args.gpu:
             img_variable = img_variable.cuda()
-
-        img_out = model(img_variable, depth=depth_variable)
+        
+        if idx == 0:
+            model(img_variable, depth_variable)
+        
+        img_out = model(img_variable, depth_variable)
+        
+        # resize for generating salmaps with same size
         img_out = F.interpolate(img_out, size=image.shape[:2], mode='bilinear', align_corners=False)
 
         if args.save_depth:
+            if 
             depth_out = F.interpolate(depth_out, size=image.shape[:2], mode='bilinear', align_corners=False)
             depthMap_numpy = (depth_out * 255).data.cpu().numpy()[0, 0].astype(np.uint8)
             depthMapGT_numpy = ((depth_variable[0,0] *0.5 + 0.5) * 255).cpu().numpy().astype(np.uint8)
@@ -82,16 +90,8 @@ def validateModel(args, model, image_list, label_list, savedir):
     F_beta, MAE = evaluate.getMetric()
     print('Overall F_beta (Val): %.4f\t MAE (Val): %.4f' % (F_beta, MAE))
 
-def main(args, data_list):
-    # read all the images in the folder
-    image_list = list()
-    label_list = list()
-    with open(osp.join(args.data_dir, data_list + '.txt')) as textFile:
-        for line in textFile:
-            line_arr = line.split()
-            image_list.append(args.data_dir + '/' + line_arr[0].strip())
-            label_list.append(args.data_dir + '/' + line_arr[1].strip())
 
+def load_model(args):
     model = net.MobileSal()
     #model = torch.nn.DataParallel(model)
     if not osp.isfile(args.pretrained):
@@ -107,10 +107,31 @@ def main(args, data_list):
     print("loaded saliency pretrained model")
 
     if args.gpu:
-        model = model.cuda()
+        model.eval()
+        if args.use_trt:
+            trt_path = args.pretrained.replace(".pth", args.trt_save_postfix)
+            print(trt_path)
+            if os.path.exists(trt_path):
+                model = TRTModule().cuda()
+                model.load_state_dict(torch.load(trt_path))
+            else:
+                print("converting model to tensorRT format, it may take a long time!")
+                x = torch.randn(1,3,320,320).cuda()
+                y = torch.randn(1,1,320,320).cuda()
+                model = torch2trt(model.cuda(), [x,y])
+                torch.save(model.state_dict(), trt_path)
+    
+    return model
 
-    # set to evaluation mode
-    model.eval()
+def main(args, model, data_list):
+    # read all the images in the folder
+    image_list = list()
+    label_list = list()
+    with open(osp.join(args.data_dir, data_list + '.txt')) as textFile:
+        for line in textFile:
+            line_arr = line.split()
+            image_list.append(args.data_dir + '/' + line_arr[0].strip())
+            label_list.append(args.data_dir + '/' + line_arr[1].strip())
     
     savedir = args.savedir + '/' + data_list + '/'
     if not osp.isdir(savedir):
@@ -124,13 +145,15 @@ if __name__ == '__main__':
     parser.add_argument('--data_dir', default="./data", help='Data directory')
     parser.add_argument('--inWidth', type=int, default=320, help='Width of RGB image')
     parser.add_argument('--inHeight', type=int, default=320, help='Height of RGB image')
-    parser.add_argument('--savedir', default='./output_train', help='directory to save the results')
+    parser.add_argument('--savedir', default='./output_train_trt', help='directory to save the results')
     parser.add_argument('--gpu', default=True, type=lambda x: (str(x).lower() == 'true'),
                         help='Run on CPU or GPU. If TRUE, then GPU')
     parser.add_argument('--pretrained', default=None, help='Pretrained model')
     parser.add_argument('--depth', default=1, type=int)
     parser.add_argument('--save_depth', default=0, type=int)
     parser.add_argument('--dutlf_test', default=0, type=int)
+    parser.add_argument('--use_trt', default=1, type=int)
+    parser.add_argument('--trt_save_postfix', default='_trt.pth', type=str)
 
     args = parser.parse_args()
     print('Called with args:')
@@ -142,6 +165,8 @@ if __name__ == '__main__':
     else:
         data_lists = ['DUT-RGBD_test']
 
+    model = load_model(args)
+    
     for data_list in data_lists:
         print("processing ", data_list)
-        main(args, data_list)
+        main(args, model, data_list)
