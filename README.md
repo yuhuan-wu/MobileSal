@@ -12,8 +12,27 @@ My e-mail is: wuyuhuan @ mail.nankai (dot) edu.cn
 
 This repository contains:
 
-- [x] Full code, data, pretrained models for training and testing
+- [x] Full code, data, pretrained models for `training` and `testing`
 - [x] MobileSal deployment, achieving 420FPS (fp32) and 800FPS (fp16) with `batch size 1` on a single RTX 2080Ti.
+
+* [Requirements](#requirements)
+  * [PyTorch](#pytorch)
+  * [Jittor](#jittor)
+  * [Deployment](#deployment)
+* [`Data Preparing`](#data-preparing)
+* [`Train`](#train)
+* [`Test`](#test)
+  * [Pretrained Models](#pretrained-models)
+  * [Generate Saliency Maps](#generate-saliency-maps)
+  * [Deployment](#deployment-1)
+  * [Speed Test](#speed-test)
+  * [`Pretrained Saliency maps`](#pretrained-saliency-maps)
+* [Others](#others)
+  * [TODO](#todo)
+  * [Contact](#contact)
+  * [License](#license)
+  * [Citation](#citation)
+  * [Acknowlogdement](#acknowlogdement)
 
 ### Requirements
 
@@ -29,7 +48,7 @@ This repository contains:
 * Jittor, OpenCV-Python
 * Tested on Jittor 1.3.1
 
-### Deployment
+#### Deployment
 
 * [torch2trt](https://github.com/NVIDIA-AI-IOT/torch2trt)
 
@@ -39,10 +58,7 @@ For Jittor users, we create a branch `jittor`. So please run the following comma
 git checkout jittor
 ````
 
-
-### Installing
-
-Please prepare the required packages.
+To install MobileSal, please run:
 
 ````
 pip install -r envs/requirements.txt
@@ -69,7 +85,10 @@ It is very simple to train our network. We have prepared a script to run the tra
 bash ./tools/train.sh
 ```
 
-### Pretrained Models
+### Test
+
+
+#### Pretrained Models
 
 As in our paper, we train our model on the NJU2K_NLPR training set, and test our model on NJU2K_test, NLPR_test, STEREO, SIP, and SSD datasets. For DUTLF-D, we train our model on DUTLF-D training set and evaluate on its testing test.
 
@@ -82,9 +101,10 @@ As in our paper, we train our model on the NJU2K_NLPR training set, and test our
 
 Download them and put them into the `pretrained/` folder.
 
-### Test / Evaluation / Results
 
-After preparing the pretrained models, it is also very simple to test our network:
+#### Generate Saliency Maps
+
+After preparing the pretrained models, it is also very simple to generate saliency maps via MobileSal:
 
 ```
 bash ./tools/test.sh
@@ -92,16 +112,16 @@ bash ./tools/test.sh
 
 The scripts will automatically generate saliency maps on the `maps/` directory.
 
+#### Deployment
 
-### Deployment
-
+The deployment largely speeds up MobileSal with batch size of 1.
 An example script is located at: `tools/test_trt.sh`. Run:
 
 ```
 bash ./tools/test_trt.sh
 ```
 
-This script will automatically convert PyTorch MobileSal to TensorRT MobileSal.
+This script will automatically convert PyTorch MobileSal to TensorRT-based MobileSal. Then it will generate saliency maps via the TensorRT-based MobileSal.
 On deployment for real-world applications, you can load the converted TensorRT MobileSal for inference:
 
 ```
@@ -111,7 +131,7 @@ model.load_state_dict(torch.load(trt_model_path))
 result = model(image, depth) # get result with [torch.Tensor] input
 ```
 
-### Speed Test
+#### Speed Test
 We provide a speed test script on MobileSal:
 
 ```
@@ -126,7 +146,7 @@ python speed_test.py
 | TensorRT | 320 x 320 |  1 |  Yes |     800    |     
 
 
-### Pretrained Saliency maps
+#### Pretrained Saliency maps
 
 For covenience, we provide the pretrained saliency maps on several datasets as below:
 
@@ -134,21 +154,23 @@ For covenience, we provide the pretrained saliency maps on several datasets as b
 
 * Multi-scale Training: [[Google Drive]](https://drive.google.com/file/d/1-vwtUPh3UWez963IyZNO6HZkGdC3GusL/view?usp=sharing), [[Baidu Pan, 9nxi]](https://pan.baidu.com/s/1a71BlcvX0MTBuP_GGd84WA)
 
-### TODO
+### Others 
+
+#### TODO
 
 1. Release the pretrained models and saliency maps on COME15K dataset.
 2. Add results with the [P2T](https://arxiv.org/abs/2106.12011) transformer backbone.
 
-### Other Tips
+#### Contact
 
 * I encourage everyone to contact me via my e-mail. My e-mail is: wuyuhuan @ mail.nankai (dot) edu.cn
 
-### License
+#### License
 
 The code is released under the [Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International Public License](https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode) for NonCommercial use only.
 
 
-### Citations
+#### Citation
 
 If you are using the code/model/data provided here in a publication, please consider citing our work:
 
@@ -163,7 +185,7 @@ If you are using the code/model/data provided here in a publication, please cons
 ````
 
 
-### Acknowlogdement
+#### Acknowlogdement
 
 This repository is built under the help of the following five projects for academic use only:
 
