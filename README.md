@@ -138,6 +138,7 @@ We provide a speed test script on MobileSal:
 python speed_test.py
 ```
 
+The speed result on a single RTX 2080Ti is as below:
 
 |     Type     | Input  Size    | Batch Size | FP16 | FPS | 
 |-----------------|:---------:|:-----:|:-----:|:-----------:|
