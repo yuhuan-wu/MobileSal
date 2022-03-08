@@ -73,7 +73,7 @@ Before training/testing our network, please download the training data:
 
 Note: if you are blocked by Google and Baidu services, you can contact me via e-mail and I will send you a copy of data and model weights.
 
-We have processed the data to json format so you can use them without any preprocessing steps. 
+We have processed the data well so you can use them without any preprocessing steps. 
 After completion of downloading, extract the data and put them to `./data/` folder.
 Then, the `./datasets/` folder should contain six folders: `NJU2K/, NLPR/, STERE/, SSD/, SIP/, DUT-RGBD/`, representing `NJU2K, NLPR, STEREO, SSD, SIP, DUTLF-D` datasets, respectively.
 
