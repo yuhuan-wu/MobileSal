@@ -180,7 +180,10 @@ If you are using the code/model/data provided here in a publication, please cons
   author={Wu, Yu-Huan and Liu, Yun and Xu, Jun and Bian, Jia-Wang and Gu, Yu-Chao and Cheng, Ming-Ming},
   journal={IEEE Transactions on Pattern Analysis and Machine Intelligence}, 
   title={MobileSal: Extremely Efficient RGB-D Salient Object Detection}, 
-  year={2021},
+  year={2022},
+  volume={44},
+  number={12},
+  pages={10261--10269},
   doi={10.1109/TPAMI.2021.3134684}
 }
 ````
