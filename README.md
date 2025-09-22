@@ -1,6 +1,6 @@
 # MobileSal
 
-[IEEE TPAMI 2021: MobileSal: Extremely Efficient RGB-D Salient Object Detection](https://ieeexplore.ieee.org/document/9647954)
+[IEEE TPAMI 2022: MobileSal: Extremely Efficient RGB-D Salient Object Detection](https://ieeexplore.ieee.org/document/9647954)
 
 This repository contains full training & testing code, and pretrained saliency maps. We have achieved competitive performance on the RGB-D salient object detection task with a speed of 450fps.
 
@@ -176,7 +176,7 @@ The code is released under the [Creative Commons Attribution-NonCommercial-Share
 If you are using the code/model/data provided here in a publication, please consider citing our work:
 
 ````
-@ARTICLE{wu2021mobilesal,
+@ARTICLE{wu2022mobilesal,
   author={Wu, Yu-Huan and Liu, Yun and Xu, Jun and Bian, Jia-Wang and Gu, Yu-Chao and Cheng, Ming-Ming},
   journal={IEEE Transactions on Pattern Analysis and Machine Intelligence}, 
   title={MobileSal: Extremely Efficient RGB-D Salient Object Detection}, 
